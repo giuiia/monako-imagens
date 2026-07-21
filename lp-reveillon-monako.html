@@ -85,9 +85,10 @@ section{padding:96px 0}
 
 /* ============ S3 PACOTES ============ */
 #pacotes{background:var(--cream)}
-#pacotes .eyebrow{color:var(--floresta)}
+#pacotes .eyebrow{color:var(--oliva)}
 .pack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
 .pack{background:#fff;border-radius:22px;padding:42px 34px 38px;text-align:center;position:relative;display:flex;flex-direction:column;box-shadow:0 4px 24px rgba(54,50,43,.07);transition:transform .25s}
+.discount-note{margin-top:12px;font-size:.85rem;font-weight:600;color:var(--floresta)}
 .pack:hover{transform:translateY(-6px)}
 .pack .tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--oliva);color:#fff;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border-radius:30px;padding:7px 18px;white-space:nowrap}
 .pack.featured{border:2px solid var(--floresta);box-shadow:0 14px 44px rgba(67,85,63,.28)}
@@ -137,11 +138,16 @@ section{padding:96px 0}
 /* ============ S6 ESTRUTURA ============ */
 #lazer{background:var(--cream)}
 #lazer .eyebrow{color:var(--petrol)}
-.lazer-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-bottom:44px}
-.lz{background:#fff;border-radius:18px;padding:28px 14px;text-align:center;box-shadow:0 4px 18px rgba(54,50,43,.06)}
-.lz svg{width:34px;height:34px;margin:0 auto 12px;display:block;color:var(--oliva)}
-.lz span{font-size:.82rem;font-weight:500;display:block;line-height:1.35}
-.lazer-note{text-align:center;font-size:1.05rem;font-weight:300;color:#5c564d;max-width:560px;margin:0 auto}
+.lazer-wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.lazer-txt h2{font-size:clamp(2rem,4vw,2.9rem);margin-bottom:16px}
+.lazer-txt .sub{font-size:1.08rem;font-weight:300;color:#5c564d}
+.lazer-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;margin:28px 0}
+.lazer-list li{display:flex;align-items:center;gap:10px;font-size:.94rem;font-weight:500}
+.lazer-list li::before{content:'✓';color:var(--oliva);font-weight:700;font-size:1.05rem}
+.lazer-note{font-size:1rem;font-weight:300;color:#5c564d}
+.lazer-mosaic{display:grid;grid-template-columns:1.1fr 1fr;grid-template-rows:repeat(2,246px);gap:14px}
+.lazer-mosaic img{width:100%;height:100%;object-fit:cover;border-radius:16px;display:block}
+.lazer-mosaic img:first-child{grid-row:1/-1}
 
 /* ============ S7 POR QUE ============ */
 #porque{background:var(--floresta);color:#fff}
@@ -161,7 +167,9 @@ section{padding:96px 0}
 .faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
 .faq-a p{font-size:.94rem;font-weight:300;color:#5c564d;padding:0 4px 26px}
-.pending{color:var(--petrol);font-style:italic}
+.faq-a table{width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:6px}
+.faq-a th,.faq-a td{border:1px solid #DDD5C6;padding:10px 12px;text-align:left}
+.faq-a th{background:var(--cream);font-weight:600}
 
 /* ============ S9 FORM ============ */
 #reservar{background:var(--carvao);color:#fff}
@@ -191,10 +199,18 @@ footer a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.85rem;transi
 footer a:hover{color:var(--oliva)}
 footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,255,.45);border-top:1px solid rgba(255,255,255,.1);padding-top:26px;margin-top:14px}
 
+/* ============ STICKY BAR ============ */
+.stickybar{position:fixed;bottom:0;left:0;right:0;z-index:99;background:var(--carvao);color:#fff;padding:12px 0;box-shadow:0 -6px 24px rgba(0,0,0,.3);transform:translateY(110%);transition:transform .35s ease}
+.stickybar.show{transform:none}
+.stickybar .container{display:flex;align-items:center;justify-content:center;gap:10px 22px;flex-wrap:wrap;text-align:center}
+.stickybar p{font-size:.88rem;font-weight:500}
+.stickybar strong{color:var(--oliva);font-family:var(--font-display);font-size:1.2rem;padding:0 3px}
+.stickybar .btn{padding:11px 26px;font-size:.85rem}
+
 /* ============ RESPONSIVO ============ */
 @media(max-width:980px){
   .pack-grid,.rooms-grid{grid-template-columns:1fr 1fr}
-  .lazer-grid{grid-template-columns:repeat(3,1fr)}
+  .lazer-wrap{grid-template-columns:1fr;gap:36px}
   .why-grid{grid-template-columns:repeat(2,1fr)}
   .ceia-grid{grid-template-columns:1fr}
 }
@@ -202,7 +218,8 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
   section{padding:64px 0}
   .pack-grid,.rooms-grid,.f-row{grid-template-columns:1fr}
   .pack.featured{order:-1}
-  .lazer-grid{grid-template-columns:repeat(2,1fr)}
+  .lazer-list{grid-template-columns:1fr}
+  .lazer-mosaic{grid-template-rows:repeat(2,150px)}
   .why-grid{grid-template-columns:1fr}
   .included{padding:34px 26px}
   .included ul{grid-template-columns:1fr}
@@ -224,17 +241,16 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
 
 <!-- S1 · HERO -->
 <header class="hero">
-  <div class="hero-bg" style="background-image:url('https://raw.githubusercontent.com/giuiia/monako-imagens/main/banner.png')"></div>
+  <div class="hero-bg" style="background-image:url('https://raw.githubusercontent.com/giuiia/monako-imagens/main/hero.jpg')"></div>
   <div class="container">
     <span class="selo">Réveillon 2026</span>
-    <h1>Sua virada de ano<br>no interior</h1>
+    <h1>Vire o ano em território<br>de pertencimento.</h1>
     <p class="sub">Hospedagem, ceia completa e festa com música ao vivo — cercado pela natureza, a 1h de São Paulo e Campinas.</p>
     <div class="hero-icons">
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Ceia completa inclusa</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Festa com música ao vivo</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>Café da manhã todos os dias</span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>Estrutura completa de lazer</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"/></svg>Chalés para famílias e casais</span>
     </div>
     <p class="countdown">Faltam <strong id="dias">--</strong> dias para o Réveillon Monakó</p>
     <div class="hero-ctas">
@@ -260,6 +276,7 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
       <span class="eyebrow">Pacotes de Réveillon</span>
       <h2>Escolha a duração perfeita para a sua virada de ano</h2>
       <p class="sub">Pacotes a partir de 3 diárias — você decide quantos dias quer aproveitar.</p>
+      <p class="discount-note" style="margin-top:10px">Quanto mais diárias, maior o desconto — fique mais, pague menos.</p>
     </div>
     <div class="pack-grid">
       <div class="pack">
@@ -267,28 +284,27 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
         <div class="nights">3</div>
         <div class="nights-label">Diárias</div>
         <p>Ideal para quem quer uma escapada rápida, com toda a experiência do Réveillon Monakó.</p>
-        <a href="#reservar" class="btn btn-dark" data-pacote="3 diárias">Quero esse pacote</a>
+        <a href="https://hbook.hsystem.com.br/Booking?companyId=67212c8e426fe6c7387ea915&amp;checkin=30/12/2026&amp;checkout=02/01/2027&amp;adults=2" target="_blank" rel="noopener" class="btn btn-dark">Quero esse pacote</a>
       </div>
       <div class="pack featured">
-        <span class="tag">Mais escolhido</span>
+        <span class="tag">Mais escolhido · 10% OFF</span>
         <div class="nights">4</div>
         <div class="nights-label">Diárias</div>
-        <p>Mais tempo para aproveitar trilha, piscina e cavalo, além da noite de virada.</p>
-        <a href="#reservar" class="btn btn-primary" data-pacote="4 diárias">Quero esse pacote</a>
+        <p>Mais tempo para aproveitar trilha, piscina e cavalo, além da noite de virada. 10% de desconto progressivo na diária.</p>
+        <a href="https://hbook.hsystem.com.br/Booking?companyId=67212c8e426fe6c7387ea915&amp;checkin=29/12/2026&amp;checkout=02/01/2027&amp;adults=2&amp;promocode=an4" target="_blank" rel="noopener" class="btn btn-primary">Quero esse pacote</a>
       </div>
       <div class="pack">
-        <span class="tag">Completo</span>
+        <span class="tag">Completo · 15% OFF</span>
         <div class="nights">5</div>
         <div class="nights-label">Diárias</div>
-        <p>Para quem quer começar o ano com calma, sem pressa para voltar para casa.</p>
-        <a href="#reservar" class="btn btn-dark" data-pacote="5 diárias">Quero esse pacote</a>
+        <p>Para quem quer começar o ano com calma, sem pressa para voltar para casa. 15% de desconto progressivo na diária.</p>
+        <a href="https://hbook.hsystem.com.br/Booking?companyId=67212c8e426fe6c7387ea915&amp;checkin=29/12/2026&amp;checkout=03/01/2027&amp;adults=2&amp;promocode=an5" target="_blank" rel="noopener" class="btn btn-dark">Quero esse pacote</a>
       </div>
     </div>
     <div class="included">
       <h3>O que está incluso em todos os pacotes</h3>
       <ul>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Hospedagem na categoria escolhida</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Piscina</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Ceia de Réveillon completa (mesa de frios + entradas volantes, prato principal, sobremesas e bebidas)</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Acesso à festa no restaurante com música ao vivo</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Café da manhã todos os dias</li>
@@ -296,7 +312,7 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
     </div>
     <div class="kids">
       <h3>Viajar em família sai mais leve.</h3>
-      <p>Crianças até 6 anos não pagam. De 7 a 12 anos, 50% de desconto.</p>
+      <p>Crianças até 6 anos não pagam. De 7 a 12 anos, 50% de desconto. Os chalés para 3 e 4 pessoas têm valor fixo, sem cobrança adicional por hóspede.</p>
     </div>
   </div>
 </section>
@@ -313,13 +329,13 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
       <div class="room">
         <div class="ph"><span class="rtag">Para casais</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/domo.jpg" alt="Domo Olympus" loading="lazy"></div>
         <div class="body">
-          <h3>Domo</h3>
+          <h3>Domo Olympus</h3>
           <p>Domo geodésico premium com cama king, banheira de hidromassagem e vista para a natureza. A virada de ano mais romântica do Monakó.</p>
           <a href="#reservar" class="btn btn-dark" data-categoria="Domo Olympus">Quero o Domo Olympus</a>
         </div>
       </div>
       <div class="room">
-        <div class="ph"><span class="rtag">Para casais</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/cadadolago.jpg" alt="Casa do Lago" loading="lazy"></div>
+        <div class="ph"><span class="rtag">Para casais</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/casa-do-lago.jpg" alt="Casa do Lago" loading="lazy"></div>
         <div class="body">
           <h3>Casa do Lago</h3>
           <p>Casa exclusiva à beira do lago, com privacidade total e ambiente premium para celebrar a dois.</p>
@@ -335,23 +351,23 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
         </div>
       </div>
       <div class="room">
-        <div class="ph"><span class="rtag familia">Para famílias</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/triplo.jpg" alt="Cabanas Standard Família Triplo" loading="lazy"></div>
+        <div class="ph"><span class="rtag familia">Até 3 hóspedes</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/triplo.jpg" alt="Cabanas Standard Família" loading="lazy"></div>
         <div class="body">
-          <h3>Cabanas Standard Família Triplo</h3>
-          <p>Espaço para até 3 hóspedes, com ar-condicionado e todo conforto para viajar com os filhos.</p>
+          <h3>Cabanas Standard Família</h3>
+          <p>Espaço com ar-condicionado e conforto funcional para viajar em grupo pequeno ou família.</p>
           <a href="#reservar" class="btn btn-dark" data-categoria="Cabana Standard Família">Quero a Cabana Família</a>
         </div>
       </div>
       <div class="room">
-        <div class="ph"><span class="rtag familia">Para famílias</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/quadruplo.png" alt="Cabanas Standard Família Quádruplo" loading="lazy"></div>
+        <div class="ph"><span class="rtag familia">Até 4 hóspedes</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/quadruplo.jpg" alt="Cabanas Standard Família" loading="lazy"></div>
         <div class="body">
-          <h3>Cabanas Standard Família Quádruplo</h3>
+          <h3>Cabanas Standard Família</h3>
           <p>Espaço para até 4 hóspedes, com ar-condicionado e todo conforto para viajar com os filhos.</p>
           <a href="#reservar" class="btn btn-dark" data-categoria="Cabana Standard Família">Quero a Cabana Família</a>
         </div>
       </div>
       <div class="room">
-        <div class="ph"><span class="rtag">Para casais</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/basic.png" alt="Cabanas Basic" loading="lazy"></div>
+        <div class="ph"><span class="rtag">Para casais</span><img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/basic.jpg" alt="Cabanas Basic" loading="lazy"></div>
         <div class="body">
           <h3>Cabanas Basic</h3>
           <p>Categoria de entrada, confortável e com o melhor custo-benefício para curtir o Réveillon.</p>
@@ -372,14 +388,14 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
     </div>
     <div class="ceia-grid">
       <div class="ceia-card">
-        <img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/ceia.png" alt="Ceia de Réveillon" loading="lazy">
+        <img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/ceia.jpg" alt="Ceia de Réveillon" loading="lazy">
         <div class="txt">
           <h3>A ceia</h3>
           <p>Mesa de frios e entradas volantes, prato principal, sobremesas e bebidas — tudo incluso no seu pacote.</p>
         </div>
       </div>
       <div class="ceia-card">
-        <img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/afesta.png" alt="Festa com música ao vivo" loading="lazy">
+        <img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/festa.jpg" alt="Festa com música ao vivo" loading="lazy">
         <div class="txt">
           <h3>A festa</h3>
           <p>Depois da ceia, a festa continua com música ao vivo de Zé da Gente, no Restaurante Dona Ignácia.</p>
@@ -392,20 +408,27 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
 <!-- S6 · ESTRUTURA & LAZER -->
 <section id="lazer">
   <div class="container">
-    <div class="sec-head">
-      <span class="eyebrow">Estrutura &amp; lazer</span>
-      <h2>O Réveillon começa antes da virada</h2>
-      <p class="sub">Enquanto o sol ainda está no céu, a fazenda inteira está à sua disposição.</p>
+    <div class="lazer-wrap">
+      <div class="lazer-txt">
+        <span class="eyebrow">Estrutura &amp; lazer</span>
+        <h2>O Réveillon começa antes da virada</h2>
+        <p class="sub">Enquanto o sol ainda está no céu, a fazenda inteira está à sua disposição.</p>
+        <ul class="lazer-list">
+          <li>Piscina</li>
+          <li>Passeio a cavalo</li>
+          <li>Trilha</li>
+          <li>Academia</li>
+          <li>Quadra de areia (beach tennis)</li>
+          <li>Café da manhã todos os dias</li>
+        </ul>
+        <p class="lazer-note">Chegue com alguns dias de antecedência e aproveite cada canto da fazenda antes da grande noite.</p>
+      </div>
+      <div class="lazer-mosaic">
+        <img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/piscina.jpg" alt="Piscina" loading="lazy" onerror="this.onerror=null;this.src='img/piscina.jpg'">
+        <img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/cafe.jpg" alt="Café da manhã" loading="lazy" onerror="this.onerror=null;this.src='img/cafe.jpg'">
+        <img src="https://raw.githubusercontent.com/giuiia/monako-imagens/main/cavalo.jpg" alt="Passeio a cavalo" loading="lazy" onerror="this.onerror=null;this.src='img/cavalo.jpg'">
+      </div>
     </div>
-    <div class="lazer-grid">
-      <div class="lz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 15c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0M2 19c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0M12 4v5M8 6l4-3 4 3"/></svg><span>Piscina</span></div>
-      <div class="lz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 21v-3.1C5.1 16.3 4 14.1 4 11.5a8 8 0 0116 0c0 2.6-1.1 4.8-3 6.4V21"/><path d="M5 21h4M15 21h4M6.2 13.5l-1.7.6M17.8 13.5l1.7.6M8.3 16.8l-1.3 1.2M15.7 16.8l1.3 1.2"/></svg><span>Passeio a cavalo</span></div>
-      <div class="lz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20l4-9 4 3 3-7 5 13M4 20h16"/></svg><span>Trilha</span></div>
-      <div class="lz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 7v10M18 7v10M3 9v6M21 9v6M6 12h12"/></svg><span>Academia</span></div>
-      <div class="lz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 3c3 3 3 15 0 18M3.5 9h17M3.5 15h17"/></svg><span>Quadra de areia (beach tennis)</span></div>
-      <div class="lz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 2v3M10 2v3M14 2v3"/></svg><span>Café da manhã todos os dias</span></div>
-    </div>
-    <p class="lazer-note">Chegue com alguns dias de antecedência e aproveite cada canto da fazenda antes da grande noite.</p>
   </div>
 </section>
 
@@ -422,8 +445,6 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
       <div class="why"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 20v-8a2 2 0 012-2h16a2 2 0 012 2v8M2 17h20M4 10V6a2 2 0 012-2h12a2 2 0 012 2v4M12 4v6"/></svg><p>Acomodações exclusivas: domos, casa à beira do lago e cabanas contemporâneas</p></div>
       <div class="why"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 3v7c0 1.5 1 2.5 2.5 2.5S10 11.5 10 10V3M7.5 12.5V21M17 3c-2 1.5-3 4-3 6.5 0 2 1.3 3 3 3V21M17 3v18"/></svg><p>Gastronomia própria, sem depender de buffets terceirizados</p></div>
       <div class="why"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="6" cy="7" r="2"/><circle cx="18" cy="7" r="2"/><circle cx="9" cy="4" r="2"/><circle cx="15" cy="4" r="2"/><path d="M12 10c-3 0-5.5 2.5-5.5 5 0 2 1.5 3 3 3 1 0 1.7-.4 2.5-.4s1.5.4 2.5.4c1.5 0 3-1 3-3 0-2.5-2.5-5-5.5-5z"/></svg><p>Ambiente pet friendly</p></div>
-    </div>
-      <p>[Espaço reservado — carrossel de depoimentos e avaliações de hóspedes, a preencher pela equipe de marketing]</p>
     </div>
   </div>
 </section>
@@ -442,11 +463,7 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
       </div>
       <div class="faq-item">
         <button class="faq-q">A ceia de Réveillon está inclusa no pacote?</button>
-        <div class="faq-a"><p>A hospedagem, o café da manhã e o acesso à festa estão inclusos no pacote. A ceia de Réveillon (31/12) tem valor adicional de R$ 360,00 por pessoa.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Crianças pagam?</button>
-        <div class="faq-a"><p>Crianças até 6 anos não pagam. De 7 a 12 anos, há desconto de 50%.</p></div>
+        <div class="faq-a"><p>A hospedagem, o café da manhã e o acesso à festa estão inclusos no pacote.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">O hotel aceita pets?</button>
@@ -458,7 +475,14 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
       </div>
       <div class="faq-item">
         <button class="faq-q">Como funciona o pagamento e o cancelamento?</button>
-        <div class="faq-a"><p class="pending">[Pendente: equipe comercial precisa definir a política oficial de pagamento e cancelamento antes da publicação.]</p></div>
+        <div class="faq-a">
+          <table>
+            <tr><th>Tipo de Tarifa</th><th>Reembolso até 7 dias antes do check-in</th><th>6 a 0 dias antes / No-show</th></tr>
+            <tr><td>Melhor Tarifa (Cartão)</td><td>100% reembolsável</td><td>100% do valor retido</td></tr>
+            <tr><td>Promocional Não Reembolsável</td><td>Sem reembolso</td><td>Sem reembolso</td></tr>
+          </table>
+          <p>Caso deseje remarcar, oferecemos crédito válido por até 90 dias, sujeito a reajuste de valores conforme novas datas.</p>
+        </div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Tem estacionamento e Wi-Fi?</button>
@@ -541,8 +565,7 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
   <div class="container">
     <img src="data:image/png;base64,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" alt="Monakó Cabanas">
     <nav>
-      <a href="#" title="Pendente: política oficial a definir pela equipe comercial">Políticas de cancelamento</a>
-      <a href="https://www.monakocabanas.com.br/" target="_blank" rel="noopener">Contato</a>
+      <a href="#faq">Políticas de cancelamento</a>
       <a href="https://www.instagram.com/monakocabanas/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://wa.me/5511978094956" target="_blank" rel="noopener">WhatsApp</a>
     </nav>
@@ -550,17 +573,27 @@ footer .addr{width:100%;text-align:center;font-size:.78rem;color:rgba(255,255,25
   </div>
 </footer>
 
+<!-- STICKY BAR -->
+<div class="stickybar" id="stickybar">
+  <div class="container">
+    <p>Faltam <strong id="dias-sticky">--</strong> dias para o Réveillon Monakó</p>
+    <a href="#reservar" class="btn btn-primary">Quero garantir minha vaga</a>
+  </div>
+</div>
+
 <script>
 // ===== Countdown (dias até 31/12/2026) =====
 (function(){
   var target = new Date(2026,11,31,0,0,0);
   var dias = Math.max(0, Math.ceil((target - new Date()) / 86400000));
   document.getElementById('dias').textContent = dias;
+  document.getElementById('dias-sticky').textContent = dias;
 })();
 
 // ===== Header ao rolar =====
 window.addEventListener('scroll', function(){
   document.getElementById('topbar').classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('stickybar').classList.toggle('show', window.scrollY > window.innerHeight * 0.85);
 });
 
 // ===== FAQ accordion =====
@@ -581,11 +614,6 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
 });
 
 // ===== Pré-seleção de pacote/categoria ao clicar nos cards =====
-document.querySelectorAll('[data-pacote]').forEach(function(el){
-  el.addEventListener('click', function(){
-    document.getElementById('pacote').value = el.getAttribute('data-pacote');
-  });
-});
 document.querySelectorAll('[data-categoria]').forEach(function(el){
   el.addEventListener('click', function(){
     document.getElementById('categoria').value = el.getAttribute('data-categoria');
