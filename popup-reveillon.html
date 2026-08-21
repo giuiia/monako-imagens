@@ -1,0 +1,54 @@
+<!-- ============================================================
+  MONAKO CABANAS - Pop-up Reveillon 2027
+  Cole no campo de codigo HTML do Pop-up do RD Station.
+  (contem HTML + CSS + JS, tudo junto)
+  Botao leva para: https://lp.monakocabanas.com.br/ano-novo
+  Para reexibir no mesmo navegador durante testes, apague a chave
+  "mnk_popup_reveillon" no localStorage ou use uma aba anonima.
+============================================================ -->
+<style>
+#mnk-pop-ov{position:fixed;inset:0;z-index:99999;background:rgba(30,28,24,.72);display:none;align-items:center;justify-content:center;padding:20px;font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased;}
+#mnk-pop-ov.on{display:flex;}
+#mnk-pop{position:relative;width:100%;max-width:440px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+#mnk-pop .mnk-x{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font-size:20px;line-height:32px;text-align:center;text-decoration:none;cursor:pointer;z-index:2;}
+#mnk-pop .mnk-x:hover{background:rgba(0,0,0,.7);}
+#mnk-pop .mnk-img{position:relative;height:200px;background:#43553F url('https://raw.githubusercontent.com/giuiia/monako-imagens/main/hero.jpg') center/cover no-repeat;}
+#mnk-pop .mnk-pill{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:#36322B;color:#fff;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:7px 16px;border-radius:30px;}
+#mnk-pop .mnk-body{padding:30px 34px 34px;text-align:center;}
+#mnk-pop h2{margin:0 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.1;color:#43553F;}
+#mnk-pop .mnk-sub{margin:0 0 18px;font-size:15px;line-height:1.5;color:#36322B;}
+#mnk-pop .mnk-hl{display:inline-block;background:#F6F1E8;color:#CC623A;font-size:14px;font-weight:bold;padding:10px 18px;border-radius:30px;margin:0 0 16px;}
+#mnk-pop .mnk-desc{margin:0 0 24px;font-size:14px;line-height:1.55;color:#5c564d;}
+#mnk-pop .mnk-cta{display:block;background:#43553F;color:#fff;font-size:15px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;text-decoration:none;text-align:center;padding:16px 20px;border-radius:40px;transition:background .2s;}
+#mnk-pop .mnk-cta:hover{background:#35452F;}
+@media(max-width:480px){#mnk-pop .mnk-img{height:160px;}#mnk-pop .mnk-body{padding:26px 24px 28px;}#mnk-pop h2{font-size:24px;}}
+</style>
+
+<div id="mnk-pop-ov" role="dialog" aria-modal="true" aria-label="R&#233;veillon 2027 no Monak&#243; Cabanas">
+  <div id="mnk-pop">
+    <a href="#" class="mnk-x" id="mnk-close" aria-label="Fechar">&#215;</a>
+    <div class="mnk-img"><span class="mnk-pill">R&#233;veillon 2027</span></div>
+    <div class="mnk-body">
+      <h2>R&#233;veillon 2027</h2>
+      <p class="mnk-sub">Comece o novo ano em grande estilo.</p>
+      <span class="mnk-hl">Hospedagem + Ceia de Ano Novo inclusa</span>
+      <p class="mnk-desc">Garanta seu pacote especial e celebre a virada com uma experi&#234;ncia completa.</p>
+      <a href="https://lp.monakocabanas.com.br/ano-novo" target="_blank" rel="noopener" class="mnk-cta">Conhe&#231;a os pacotes</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='mnk_popup_reveillon', DELAY=1200;
+  function seen(){try{return localStorage.getItem(KEY)==='1';}catch(e){return false;}}
+  function mark(){try{localStorage.setItem(KEY,'1');}catch(e){}}
+  var ov=document.getElementById('mnk-pop-ov');
+  function open(){ov.classList.add('on');mark();}
+  function close(e){if(e)e.preventDefault();ov.classList.remove('on');}
+  document.getElementById('mnk-close').addEventListener('click',close);
+  ov.addEventListener('click',function(e){if(e.target===ov)close(e);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  if(!seen()) setTimeout(open,DELAY);
+})();
+</script>
